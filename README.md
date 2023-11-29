@@ -5,9 +5,9 @@ The official repository of the paper [SyncTalk: The Devil is in the Synchronizat
   <b>
     <a href="https://arxiv.org/abs/">Paper</a>
     | 
-    <a href="https://ziqiaopeng.github.io/synctalk/">Video</a>
+    <a href="https://ziqiaopeng.github.io/synctalk/">Project Page</a>
     |
-    <a href="https://github.com/ZiqiaoPeng/SyncTalk">Dataset</a> 
+    <a href="https://github.com/ZiqiaoPeng/SyncTalk">Code</a> 
   </b>
 </p> 
   <p align='center'>  
