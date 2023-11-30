@@ -3,7 +3,7 @@ The official repository of the paper [SyncTalk: The Devil is in the Synchronizat
 
 <p align='center'>
   <b>
-    <a href="https://arxiv.org/abs/">Paper</a>
+    <a href="https://arxiv.org/abs/2311.17590">Paper</a>
     | 
     <a href="https://ziqiaopeng.github.io/synctalk/">Project Page</a>
     |
