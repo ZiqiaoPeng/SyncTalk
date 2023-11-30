@@ -16,7 +16,3 @@ The official repository of the paper [SyncTalk: The Devil is in the Synchronizat
 
   The proposed **SyncTalk** synthesizes synchronized talking head videos, employing tri-plane hash representations to maintain subject identity. It can generate synchronized lip movements, facial expressions, and stable head poses, and restores hair details to create high-resolution videos.
 
-  ## Code
-
-We will release the code after the paper is accepted.
-
