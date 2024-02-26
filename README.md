@@ -1,4 +1,4 @@
-# SyncTalk: The Devil😈 is in the Synchronization for Talking Head Synthesis
+# SyncTalk: The Devil😈 is in the Synchronization for Talking Head Synthesis [CVPR 2024]
 The official repository of the paper [SyncTalk: The Devil is in the Synchronization for Talking Head Synthesis](https://arxiv.org/abs/2311.17590)
 
 <p align='center'>
@@ -17,9 +17,7 @@ The official repository of the paper [SyncTalk: The Devil is in the Synchronizat
   The proposed **SyncTalk** synthesizes synchronized talking head videos, employing tri-plane hash representations to maintain subject identity. It can generate synchronized lip movements, facial expressions, and stable head poses, and restores hair details to create high-resolution videos.
 
 ## Code
-We will release our code after the paper is accepted. 
-
-Thank you for your patience.
+We are organizing the code. Thank you for your patience.
 
 ## Citation	
 
