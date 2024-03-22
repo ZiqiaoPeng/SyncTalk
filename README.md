@@ -10,6 +10,9 @@ The official repository of the paper [SyncTalk: The Devil is in the Synchronizat
     <a href="https://github.com/ZiqiaoPeng/SyncTalk">Code</a> 
   </b>
 </p> 
+
+Colab notebook demonstration: [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1Egq0_ZK5sJAAawShxC0y4JRZQuVS2X-Z?usp=sharing)
+
   <p align='center'>  
     <img src='assets/image/synctalk.png' width='1000'/>
   </p>
@@ -89,8 +92,8 @@ python main.py data/May --workspace model/trial_may -O --test --asr_model ave --
 ## TODO
 - [x] **Release Training Code.**
 - [x] **Release Pre-trained Model.**
+- [x] **Release Google Colab.**
 - [ ] Release Preprocessing Code.
-- [ ] Release Google Colab.
 
 
 
