@@ -18,15 +18,21 @@ Colab notebook demonstration: [![Open In Colab](https://colab.research.google.co
   </p>
 
   The proposed **SyncTalk** synthesizes synchronized talking head videos, employing tri-plane hash representations to maintain subject identity. It can generate synchronized lip movements, facial expressions, and stable head poses, and restores hair details to create high-resolution videos.
+## 🔥🔥🔥 For Windows
+Thanks to [okgpt](https://github.com/okgptai), we have launched a Windows integration package, you can download `SyncTalk-Windows.zip` and unzip it, double-click `inference.bat` to run the demo.
 
-## Installation
+Download link: [Hugging Face](https://huggingface.co/ZiqiaoPeng/SyncTalk/blob/main/SyncTalk-Windows.zip) ||  [Baidu Netdisk](https://pan.baidu.com/s/1g3312mZxx__T6rAFPHjrRg?pwd=6666)
+
+## For Linux
+
+### Installation
 
 Tested on Ubuntu 18.04, Pytorch 1.12.1 and CUDA 11.3.
 ```bash
 git clone https://github.com/ZiqiaoPeng/SyncTalk.git
 cd SyncTalk
 ```
-### Install dependency
+#### Install dependency
 
 ```bash
 conda create -n synctalk python==3.8.8
@@ -44,11 +50,11 @@ If you encounter problems installing PyTorch3D, you can use the following comman
 python ./scripts/install_pytorch3d.py
 ```
 
-## Data Preparation
+### Data Preparation
 Please place the [May.zip](https://drive.google.com/file/d/18Q2H612CAReFxBd9kxr-i1dD8U1AUfsV/view?usp=sharing) in the **data** folder, the [trial_may.zip](https://drive.google.com/file/d/1C2639qi9jvhRygYHwPZDGs8pun3po3W7/view?usp=sharing) in the **model** folder, and then unzip them.
 
-## Quick Start
-### Run the evaluation code
+### Quick Start
+#### Run the evaluation code
 ```bash
 python main.py data/May --workspace model/trial_may -O --test --asr_model ave
 
@@ -64,12 +70,12 @@ If it runs correctly, you will get the following results.
 
 This is for a single subject; the paper reports the average results for multiple subjects.
 
-### Inference with target audio
+#### Inference with target audio
 ```bash
 python main.py data/May --workspace model/trial_may -O --test --test_train --asr_model ave --portrait --aud ./demo/test.wav
 ```
 Please use files with the “.wav” extension for inference, and the inference results will be saved in “model/trial_may/results/”.
-## Train
+### Train
 ```bash
 # by default, we load data from disk on the fly.
 # we can also preload all data to CPU/GPU for faster training, but this is very memory-hungry for large datasets.
@@ -83,7 +89,7 @@ python main.py data/May --workspace model/trial_may -O --iters 100000 --finetune
 sh ./scripts/train_may.sh
 ```
 
-## Test
+### Test
 ```bash
 python main.py data/May --workspace model/trial_may -O --test --asr_model ave --portrait
 ```
