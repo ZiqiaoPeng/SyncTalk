@@ -1620,7 +1620,7 @@ class AudDataset(object):
         wav = load_wav(wavpath, 16000)
 
         self.orig_mel = melspectrogram(wav).T
-        self.data_len = int((self.orig_mel.shape[0] - 16) / 80. * float(25))
+        self.data_len = int((self.orig_mel.shape[0] - 16) / 80. * float(25)) + 2
 
     def get_frame_id(self, frame):
         return int(basename(frame).split('.')[0])
