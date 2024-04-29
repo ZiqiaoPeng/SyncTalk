@@ -23,9 +23,9 @@ class Face_3DMM(nn.Module):
         for i in range(3):
             mu[:, i] -= np.mean(mu[:, i])
         mu = mu.reshape(-1)
-        self.base_id = torch.as_tensor(base_id).cuda() / 100000.0
-        self.base_exp = torch.as_tensor(base_exp).cuda() / 100000.0
-        self.mu = torch.as_tensor(mu).cuda() / 100000.0
+        self.base_id = torch.as_tensor(base_id).cuda() /1000.0
+        self.base_exp = torch.as_tensor(base_exp).cuda() /1000.0
+        self.mu = torch.as_tensor(mu).cuda() /1000.0
         base_tex = DMM_info["b_tex"][:tex_dim, :]
         mu_tex = DMM_info["mu_tex"]
         self.base_tex = torch.as_tensor(base_tex).cuda()
