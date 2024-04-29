@@ -248,11 +248,11 @@ class NeRFDataset:
 
         bs = np.load(os.path.join(self.root_path, 'bs.npy'))
         if self.opt.bs_area == "upper":
-            bs = np.hstack((bs[:, 1:6], bs[:, 9:11]))
+            bs = np.hstack((bs[:, 0:5], bs[:, 8:10]))
         elif self.opt.bs_area == "single":
-            bs = np.hstack((bs[:, 1].reshape(-1, 1),bs[:, 3].reshape(-1, 1),bs[:, 4].reshape(-1, 1), bs[:, 9].reshape(-1, 1)))
+            bs = np.hstack((bs[:, 0].reshape(-1, 1),bs[:, 2].reshape(-1, 1),bs[:, 3].reshape(-1, 1), bs[:, 8].reshape(-1, 1)))
         elif self.opt.bs_area == "eye":
-            bs = bs[:,9:11]
+            bs = bs[:,8:10]
 
 
         self.torso_img = []
