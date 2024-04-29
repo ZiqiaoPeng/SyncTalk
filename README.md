@@ -26,7 +26,9 @@ A short demo video can be found [here](./demo/short_demo.mp4).
 - [2024-03-04] The code and pre-trained model are released.
 - [2024-03-22] The Google Colab notebook is released.
 - [2024-04-14] Add Windows support.
-- **[2024-04-28] The preprocessing code is released.**
+- [2024-04-28] The preprocessing code is released.
+- **[2024-04-29] Fix bugs: audio encoder, blendshape capture, and face tracker.**
+
 
 
 ## For Windows
@@ -88,7 +90,7 @@ Please place the [May.zip](https://drive.google.com/file/d/18Q2H612CAReFxBd9kxr-
     cd data_utils/face_tracking
     python convert_BFM.py
   ```
- - Put your video under `data/<ID>/<ID>.mp4`, and then run the following command to process the video.
+- Put your video under `data/<ID>/<ID>.mp4`, and then run the following command to process the video.
 
   ```bash
   python data_utils/process.py data/<ID>/<ID>.mp4
