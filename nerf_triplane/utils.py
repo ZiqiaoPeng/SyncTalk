@@ -1633,6 +1633,10 @@ class AudDataset(object):
         start_idx = int(80. * (start_frame_num / float(25)))
 
         end_idx = start_idx + 16
+        if end_idx > spec.shape[0]:
+            # print(end_idx, spec.shape[0])
+            end_idx = spec.shape[0]
+            start_idx = end_idx - 16
 
         return spec[start_idx: end_idx, :]
 
