@@ -36,7 +36,7 @@ def infer_bs(root_path):
     for i in os.listdir(root_path):
         if i.endswith(".mp4"):
             mp4_path = os.path.join(root_path, i)
-            npy_path = os.path.join(root_path, "bs_mp.npy")
+            npy_path = os.path.join(root_path, "bs.npy")
             if os.path.exists(npy_path):
                 print("npy file exists:", i.split(".")[0])
                 continue
