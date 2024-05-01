@@ -137,6 +137,7 @@ python main.py data/May --workspace model/trial_may -O --iters 100000 --finetune
 # or you can use the script to train
 sh ./scripts/train_may.sh
 ```
+**[Tips]** Audio visual encoder (AVE) is suitable for characters with accurate lip sync and large lip movements such as May and Shaheen. Using AVE in the inference stage can achieve more accurate lip sync. If your training results show lip jitter, please try using deepspeech or hubert model as audio feature encoder. You can refer to [ER-NeRF](https://github.com/Fictionarry/ER-NeRF). We will add a argument to use different audio feature encoders.
 
 ### Test
 ```bash
@@ -149,6 +150,7 @@ python main.py data/May --workspace model/trial_may -O --test --asr_model ave --
 - [x] **Release Pre-trained Model.**
 - [x] **Release Google Colab.**
 - [x] **Release Preprocessing Code.**
+- [ ] Add audio feature encoder arguments.
 
 
 
