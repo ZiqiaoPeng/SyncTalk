@@ -27,7 +27,8 @@ A short demo video can be found [here](./demo/short_demo.mp4).
 - [2024-03-22] The Google Colab notebook is released.
 - [2024-04-14] Add Windows support.
 - [2024-04-28] The preprocessing code is released.
-- **[2024-04-29] Fix bugs: audio encoder, blendshape capture, and face tracker.**
+- [2024-04-29] Fix bugs: audio encoder, blendshape capture, and face tracker.
+- **[2024-05-03] Try replacing NeRF with Gaussian Splatting. Code: [GS-SyncTalk](https://github.com/ZiqiaoPeng/GS-SyncTalk)**
 
 
 
