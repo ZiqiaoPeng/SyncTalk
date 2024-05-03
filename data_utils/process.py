@@ -18,6 +18,16 @@ def extract_audio(path, out_path, sample_rate=16000):
     os.system(cmd)
     print(f'[INFO] ===== extracted audio =====')
 
+def extract_audio_features(path, mode='deepspeech'):
+
+    print(f'[INFO] ===== extract audio labels for {path} =====')
+    if mode == 'wav2vec':
+        cmd = f'python nerf/asr.py --wav {path} --save_feats'
+    elif mode == "deepspeech": # deepspeech
+        cmd = f'python data_utils/deepspeech_features/extract_ds_features.py --input {path}'
+    os.system(cmd)
+    print(f'[INFO] ===== extracted audio labels =====')
+
 
 def extract_images(path, out_path, fps=25):
 
@@ -406,6 +416,8 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('path', type=str, help="path to video file")
     parser.add_argument('--task', type=int, default=-1, help="-1 means all")
+    parser.add_argument('--asr', type=str, default='deepspeech', help="wav2vec or deepspeech")
+
 
     opt = parser.parse_args()
 
@@ -431,6 +443,7 @@ if __name__ == '__main__':
     # extract audio
     if opt.task == -1 or opt.task == 1:
         extract_audio(opt.path, wav_path)
+        extract_audio_features(wav_path, mode=opt.asr)
 
     # extract images
     if opt.task == -1 or opt.task == 2:
