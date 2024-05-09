@@ -41,7 +41,7 @@ if __name__ == '__main__':
     parser.add_argument('--amb_aud_loss', type=int, default=1, help="use ambient aud loss")
     parser.add_argument('--amb_eye_loss', type=int, default=1, help="use ambient eye loss")
     parser.add_argument('--unc_loss', type=int, default=1, help="use uncertainty loss")
-    parser.add_argument('--lambda_amb', type=float, default=1e-1, help="lambda for ambient loss")
+    parser.add_argument('--lambda_amb', type=float, default=1e-4, help="lambda for ambient loss")
     parser.add_argument('--pyramid_loss', type=int, default=0, help="use perceptual loss")
 
     ### network backbone options
