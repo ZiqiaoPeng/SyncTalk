@@ -18,14 +18,17 @@ def extract_audio(path, out_path, sample_rate=16000):
     os.system(cmd)
     print(f'[INFO] ===== extracted audio =====')
 
-def extract_audio_features(path, mode='deepspeech'):
+def extract_audio_features(path, mode='ave'):
 
     print(f'[INFO] ===== extract audio labels for {path} =====')
-    if mode == 'wav2vec':
-        cmd = f'python nerf/asr.py --wav {path} --save_feats'
+    if mode == 'ave':
+        print(f'AVE has been integrated into the training code, no need to extract audio features')
     elif mode == "deepspeech": # deepspeech
         cmd = f'python data_utils/deepspeech_features/extract_ds_features.py --input {path}'
-    os.system(cmd)
+        os.system(cmd)
+    elif mode == 'hubert':
+        cmd = f'python data_utils/hubert.py --wav {path}' # save to data/<name>_hu.npy
+        os.system(cmd)
     print(f'[INFO] ===== extracted audio labels =====')
 
 
@@ -416,7 +419,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('path', type=str, help="path to video file")
     parser.add_argument('--task', type=int, default=-1, help="-1 means all")
-    parser.add_argument('--asr', type=str, default='deepspeech', help="wav2vec or deepspeech")
+    parser.add_argument('--asr', type=str, default='ave', help="ave, hubert or deepspeech")
 
 
     opt = parser.parse_args()

@@ -207,15 +207,19 @@ class NeRFNetwork(NeRFRenderer):
         self.num_layers = 3
         self.hidden_dim = 64
         self.geo_feat_dim = 64
-        if self.opt.bs_area == "upper":
-            self.eye_att_net = MLP(self.in_dim, 7, 64, 2)
-            self.eye_dim = 7 if self.exp_eye else 0
-        elif self.opt.bs_area == "single":
-            self.eye_att_net = MLP(self.in_dim, 4, 64, 2)
-            self.eye_dim = 4 if self.exp_eye else 0
-        elif self.opt.bs_area == "eye":
-            self.eye_att_net = MLP(self.in_dim, 2, 64, 2)
-            self.eye_dim = 2 if self.exp_eye else 0
+        if self.opt.au45:
+            self.eye_att_net = MLP(self.in_dim, 1, 16, 2)
+            self.eye_dim = 1 if self.exp_eye else 0
+        else:
+            if self.opt.bs_area == "upper":
+                self.eye_att_net = MLP(self.in_dim, 7, 64, 2)
+                self.eye_dim = 7 if self.exp_eye else 0
+            elif self.opt.bs_area == "single":
+                self.eye_att_net = MLP(self.in_dim, 4, 64, 2)
+                self.eye_dim = 4 if self.exp_eye else 0
+            elif self.opt.bs_area == "eye":
+                self.eye_att_net = MLP(self.in_dim, 2, 64, 2)
+                self.eye_dim = 2 if self.exp_eye else 0
         self.sigma_net = MLP(self.in_dim + self.audio_dim + self.eye_dim, 1 + self.geo_feat_dim, self.hidden_dim, self.num_layers)
         ## color network
         self.num_layers_color = 2

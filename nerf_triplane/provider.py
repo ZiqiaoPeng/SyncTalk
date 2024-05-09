@@ -248,14 +248,18 @@ class NeRFDataset:
 
                 print(f'[INFO] load {self.opt.aud} aud_features: {aud_features.shape}')
 
-
-        bs = np.load(os.path.join(self.root_path, 'bs.npy'))
-        if self.opt.bs_area == "upper":
-            bs = np.hstack((bs[:, 0:5], bs[:, 8:10]))
-        elif self.opt.bs_area == "single":
-            bs = np.hstack((bs[:, 0].reshape(-1, 1),bs[:, 2].reshape(-1, 1),bs[:, 3].reshape(-1, 1), bs[:, 8].reshape(-1, 1)))
-        elif self.opt.bs_area == "eye":
-            bs = bs[:,8:10]
+        if self.opt.au45:
+            import pandas as pd
+            au_blink_info = pd.read_csv(os.path.join(self.root_path, 'au.csv'))
+            bs = au_blink_info[' AU45_r'].values
+        else:
+            bs = np.load(os.path.join(self.root_path, 'bs.npy'))
+            if self.opt.bs_area == "upper":
+                bs = np.hstack((bs[:, 0:5], bs[:, 8:10]))
+            elif self.opt.bs_area == "single":
+                bs = np.hstack((bs[:, 0].reshape(-1, 1),bs[:, 2].reshape(-1, 1),bs[:, 3].reshape(-1, 1), bs[:, 8].reshape(-1, 1)))
+            elif self.opt.bs_area == "eye":
+                bs = bs[:,8:10]
 
 
         self.torso_img = []
@@ -355,6 +359,8 @@ class NeRFDataset:
 
             if self.opt.exp_eye:
                 area = bs[f['img_id']]
+                if self.opt.au45:
+                    area = np.clip(area, 0, 2) / 2
                 self.eye_area.append(area)
 
                 xmin, xmax = int(lms[36:48, 1].min()), int(lms[36:48, 1].max())
@@ -444,13 +450,15 @@ class NeRFDataset:
                     start = max(0, i - 1)
                     end = min(ori_eye.shape[0], i + 2)
                     self.eye_area[i] = ori_eye[start:end].mean()
-            if self.opt.bs_area == "upper":
-                self.eye_area = torch.from_numpy(self.eye_area).view(-1, 7) # [N, 7]
-            elif self.opt.bs_area == "single":
-                self.eye_area = torch.from_numpy(self.eye_area).view(-1, 4)  # [N, 7]
+            if self.opt.au45:
+                self.eye_area = torch.from_numpy(self.eye_area).view(-1, 1)  # [N, 1]
             else:
-                self.eye_area = torch.from_numpy(self.eye_area).view(-1, 2)
-
+                if self.opt.bs_area == "upper":
+                    self.eye_area = torch.from_numpy(self.eye_area).view(-1, 7) # [N, 7]
+                elif self.opt.bs_area == "single":
+                    self.eye_area = torch.from_numpy(self.eye_area).view(-1, 4)  # [N, 7]
+                else:
+                    self.eye_area = torch.from_numpy(self.eye_area).view(-1, 2)
         
         # calculate mean radius of all camera poses
         self.radius = self.poses[:, :3, 3].norm(dim=-1).mean(0).item()
