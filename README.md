@@ -93,7 +93,8 @@ Please place the [May.zip](https://drive.google.com/file/d/18Q2H612CAReFxBd9kxr-
     python convert_BFM.py
   ```
 - Put your video under `data/<ID>/<ID>.mp4`, and then run the following command to process the video.
-
+  
+  **[Note]** The video must be 25FPS, with all frames containing the talking person. The resolution should be about 512x512, and duration about 4-5 min.
   ```bash
   python data_utils/process.py data/<ID>/<ID>.mp4 --asr ave
   ```
