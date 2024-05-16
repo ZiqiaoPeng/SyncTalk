@@ -155,7 +155,7 @@ python main.py data/May --workspace model/trial_may -O --iters 100000 --finetune
 
 # If you want to train the torso, same as ER-NeRF
 # <head>.pth should be the latest checkpoint in trial_may
-python main.py data/May/ --workspace model/trial_may_torso/ -O --torso --head_ckpt <head>.pth --iters 150000
+python main.py data/May/ --workspace model/trial_may_torso/ -O --torso --head_ckpt <head>.pth --iters 150000 --asr_model ave
 
 # or you can use the script to train
 sh ./scripts/train_may.sh
