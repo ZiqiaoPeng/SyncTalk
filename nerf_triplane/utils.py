@@ -1095,8 +1095,8 @@ class Trainer(object):
         # write video
         all_preds = np.stack(all_preds, axis=0)
         all_preds_depth = np.stack(all_preds_depth, axis=0)
-        imageio.mimwrite(os.path.join(save_path, f'{name}.mp4'), all_preds, fps=25, quality=8, macro_block_size=1)
-        imageio.mimwrite(os.path.join(save_path, f'{name}_depth.mp4'), all_preds_depth, fps=25, quality=8, macro_block_size=1)
+        imageio.mimwrite(os.path.join(save_path, f'{name}.mp4'), all_preds, fps=25, quality=10, macro_block_size=1)
+        imageio.mimwrite(os.path.join(save_path, f'{name}_depth.mp4'), all_preds_depth, fps=25, quality=10, macro_block_size=1)
         if self.opt.aud != '' and self.opt.asr_model == 'ave':
             os.system(f'ffmpeg -i {os.path.join(save_path, f"{name}.mp4")} -i {self.opt.aud} -c:v copy -strict -2 {os.path.join(save_path, f"{name}_audio.mp4")} -y')
 
