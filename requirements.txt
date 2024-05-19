@@ -26,7 +26,6 @@ configargparse
 lpips
 imageio-ffmpeg
 onnxruntime-gpu
-facenet_pytorch
 librosa
 fvcore
 iopath
