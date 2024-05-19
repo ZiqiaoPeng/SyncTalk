@@ -20,8 +20,6 @@ from mediapipe.tasks.python import vision
 
 
 from tqdm import tqdm
-from facenet_pytorch import MTCNN
-#from mtcnn_ort import MTCNN
 
 
 def infer_bs(root_path):
