@@ -117,6 +117,8 @@ if __name__ == '__main__':
     parser.add_argument('-m', type=int, default=50)
     parser.add_argument('-r', type=int, default=10)
 
+    parser.add_argument('--output_name', type=str)
+
     opt = parser.parse_args()
 
     if opt.O:
@@ -204,7 +206,7 @@ if __name__ == '__main__':
 
         else:
             ### test and save video (fast)  
-            trainer.test(test_loader)
+            trainer.test(test_loader, name=opt.output_name)
 
             ### evaluate metrics (slow)
             if test_loader.has_gt:
