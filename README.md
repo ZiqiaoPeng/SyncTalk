@@ -183,6 +183,10 @@ python main.py data/May --workspace model/trial_may -O --iters 100000 --finetune
 ### Test
 ```bash
 python main.py data/May --workspace model/trial_may -O --test --asr_model ave --portrait
+
+# If you want to add the torso for inference
+python main.py data/May --workspace model/trial_may_torso -O  --torso --test --asr_model ave  # not support portrait
+
 ```
 
 
