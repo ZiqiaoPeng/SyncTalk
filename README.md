@@ -28,7 +28,8 @@ A short demo video can be found [here](./demo/short_demo.mp4).
 - [2024-04-14] Add Windows support.
 - [2024-04-28] The preprocessing code is released.
 - [2024-04-29] Fix bugs: audio encoder, blendshape capture, and face tracker.
-- **[2024-05-03] Try replacing NeRF with Gaussian Splatting. Code: [GS-SyncTalk](https://github.com/ZiqiaoPeng/GS-SyncTalk)**
+- [2024-05-03] Try replacing NeRF with Gaussian Splatting. Code: [GS-SyncTalk](https://github.com/ZiqiaoPeng/GS-SyncTalk)
+- **[2024-05-24] Introduce torso training to repair double chin.**
 
 
 
@@ -153,10 +154,6 @@ Please use files with the “.wav” extension for inference, and the inference 
 python main.py data/May --workspace model/trial_may -O --iters 60000 --asr_model ave
 python main.py data/May --workspace model/trial_may -O --iters 100000 --finetune_lips --patch_size 64 --asr_model ave
 
-# If you want to train the torso, same as ER-NeRF
-# <head>.pth should be the latest checkpoint in trial_may
-python main.py data/May/ --workspace model/trial_may_torso/ -O --torso --head_ckpt <head>.pth --iters 150000 --asr_model ave
-
 # or you can use the script to train
 sh ./scripts/train_may.sh
 ```
@@ -184,18 +181,26 @@ python main.py data/May --workspace model/trial_may -O --iters 100000 --finetune
 ```bash
 python main.py data/May --workspace model/trial_may -O --test --asr_model ave --portrait
 
-# If you want to add the torso for inference
-python main.py data/May --workspace model/trial_may_torso -O  --torso --test --asr_model ave  # not support portrait
-
 ```
 
+### Train & Test Torso [Repair Double Chin]
+If your character trained only the head appeared double chin problem, you can introduce torso training. By training the torso, this problem can be solved, but **you will not be able to use the "--portrait" mode.** If you add "--portrait", the torso model will fail!
 
-## TODO
-- [x] **Release Training Code.**
-- [x] **Release Pre-trained Model.**
-- [x] **Release Google Colab.**
-- [x] **Release Preprocessing Code.**
-- [x] **Add audio feature encoder arguments.**
+```bash
+# Train
+# <head>.pth should be the latest checkpoint in trial_may
+python main.py data/May/ --workspace model/trial_may_torso/ -O --torso --head_ckpt <head>.pth --iters 150000 --asr_model ave
+
+# For example
+python main.py data/May/ --workspace model/trial_may_torso/ -O --torso --head_ckpt model/trial_may/ngp_ep0019.pth --iters 150000 --asr_model ave
+
+# Test
+python main.py data/May --workspace model/trial_may_torso -O  --torso --test --asr_model ave  # not support --portrait
+
+# Inference with target audio
+python main.py data/May --workspace model/trial_may_torso -O  --torso --test --test_train --asr_model ave --aud ./demo/test.wav # not support --portrait
+
+```
 
 
 
