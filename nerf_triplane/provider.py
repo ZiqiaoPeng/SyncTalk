@@ -212,7 +212,13 @@ class NeRFDataset:
                 else:
                     try:
                         # aud_features = np.load(self.opt.aud)
-                        aud_features = np.load(self.opt.aud.split('.')[0]+'_hu.npy')
+                        if 'deepspeech' in self.opt.asr_model:
+                            aud_features_file = self.opt.aud.split('.')[0]+'_ds.npy'
+                        elif 'hubert' in self.opt.asr_model:
+                            aud_features_file = self.opt.aud.split('.')[0]+'_hu.npy'
+                        else:
+                            raise Exception("Invalid asr_model")
+                        aud_features = np.load(aud_features_file)
                     except:
                         print(f'[ERROR] If do not use Audio Visual Encoder, replace it with the npy file path.')
 
