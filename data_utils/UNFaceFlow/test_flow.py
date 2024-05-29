@@ -58,5 +58,12 @@ if __name__ == "__main__":
     Path(save_path).mkdir(parents=True, exist_ok=True)
     total_length = len(testloader)
 
+    i = 1
+
     for batch_idx, data in tqdm(enumerate(testloader), total=total_length):
         predict(data)
+        print(f'[{i}/{total_length}] UNFaceFlow test')
+        i = i + 1
+
+    if total_length <= 0:
+        print('[1/1] UNFaceFlow test')

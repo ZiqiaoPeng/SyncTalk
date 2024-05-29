@@ -61,7 +61,12 @@ sel_ids = np.arange(0, num_frames, 10)
 sel_num = sel_ids.shape[0]
 arg_focal = 0.0
 arg_landis = 1e5
-for focal in range(500, 1500, 50):
+
+i = 1
+range_value = range(500, 1500, 50)
+steps_count = len(list(range_value))
+
+for focal in range_value:
     id_para = lms.new_zeros((1, id_dim), requires_grad=True)
     exp_para = lms.new_zeros((sel_num, exp_dim), requires_grad=True)
     euler_angle = lms.new_zeros((sel_num, 3), requires_grad=True)
@@ -96,10 +101,14 @@ for focal in range(500, 1500, 50):
             optimizer_id.step()
             optimizer_exp.step()
         optimizer_frame.step()
-    print(focal, loss_lan.item(), torch.mean(trans[:, 2]).item())
+    print(f'[{i}/{steps_count}]', focal, loss_lan.item(), torch.mean(trans[:, 2]).item())
+    i = i + 1
     if loss_lan.item() < arg_landis:
         arg_landis = loss_lan.item()
         arg_focal = focal
+
+if steps_count <= 0:
+    print('[1/1]')
 
 sel_ids = np.arange(0, num_frames)
 sel_num = sel_ids.shape[0]

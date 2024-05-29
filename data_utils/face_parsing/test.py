@@ -121,6 +121,8 @@ def evaluate(respth='./res/test_res', dspth='./data', cp='model_final_diss.pth')
     image_paths = os.listdir(dspth)
 
     with torch.no_grad():
+        i = 1
+        steps_count = len(image_paths)
         for image_path in tqdm.tqdm(image_paths):
             if image_path.endswith('.jpg') or image_path.endswith('.png'):
                 img = Image.open(osp.join(dspth, image_path))
@@ -137,6 +139,11 @@ def evaluate(respth='./res/test_res', dspth='./data', cp='model_final_diss.pth')
                 image_path = str(image_path) + '.png'
 
                 vis_parsing_maps(image, parsing, stride=1, save_im=True, save_path=osp.join(respth, image_path), img_size=ori_size)
+            print(f'[{i}/{steps_count}] [face_parsing] evaluate progress')
+            i = i + 1
+
+        if steps_count <= 0:
+            print('[1/1] [face_parsing] evaluate progress')
 
 
 if __name__ == "__main__":

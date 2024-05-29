@@ -31,6 +31,9 @@ def infer_bs(root_path):
                                            num_faces=1)
     detector = vision.FaceLandmarker.create_from_options(options)
 
+    t = 1
+    steps_count = len(os.listdir(root_path))
+
     for i in os.listdir(root_path):
         if i.endswith(".mp4"):
             mp4_path = os.path.join(root_path, i)
@@ -77,6 +80,12 @@ def infer_bs(root_path):
                     output[:, j] = savgol_filter(bs[:, j], 5, 3)
                 np.save(npy_path, output)
                 print(np.shape(output))
+
+        print(f'[{t}/{steps_count}] blendshape')
+        t = t + 1
+
+    if steps_count <= 0:
+        print('[1/1] blendshape')
 
 
 if __name__ == '__main__':

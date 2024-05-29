@@ -34,21 +34,26 @@ set_requires_grad([euler_angle, trans, pts])
 cxy = torch.Tensor((args.img_w/2.0, args.img_h/2.0)).float().cuda()
 
 optimizer_pts = torch.optim.Adam([pts], lr=1e-2)
-iter_num = 500
-for iter in range(iter_num):
+
+first_iter_num = 500
+second_iter_num = 8000
+
+i = 1
+steps_count = first_iter_num + second_iter_num
+
+for iter in range(first_iter_num):
     proj_pts = forward_transform(pts.unsqueeze(0).expand(
         num_frames, -1, -1), euler_angle, trans, focal_len, cxy)
     loss = cal_lan_loss(proj_pts[..., :2], track_xys)
     optimizer_pts.zero_grad()
     loss.backward()
     optimizer_pts.step()
-
+    print(f'[{i}/{steps_count}] bundle_adjustment')
+    i = i + 1
 
 optimizer_ba = torch.optim.Adam([pts, euler_angle, trans], lr=1e-4)
 
-
-iter_num = 8000
-for iter in range(iter_num):
+for iter in range(second_iter_num):
     proj_pts = forward_transform(pts.unsqueeze(0).expand(
         num_frames, -1, -1), euler_angle, trans, focal_len, cxy)
     loss_lan = cal_lan_loss(proj_pts[..., :2], track_xys)
@@ -56,6 +61,8 @@ for iter in range(iter_num):
     optimizer_ba.zero_grad()
     loss.backward()
     optimizer_ba.step()
+    print(f'[{i}/{steps_count}] bundle_adjustment')
+    i = i + 1
 
 torch.save({'euler': euler_angle.detach().cpu(),
             'trans': trans.detach().cpu(),

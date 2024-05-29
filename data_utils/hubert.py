@@ -45,10 +45,12 @@ def get_hubert_from_16k_speech(speech, device="cuda:0"):
         input_values = input_values_all[:, start_idx: end_idx]
         hidden_states = hubert_model.forward(input_values).last_hidden_state # [B=1, T=pts//320, hid=1024]
         res_lst.append(hidden_states[0])
+        print(f'[{i + 1}/{num_iter}] [hubert] get_hubert_from_16k_speech progress')
     if num_iter > 0:
         input_values = input_values_all[:, clip_length * num_iter:]
     else:
         input_values = input_values_all
+        print('[1/1] [hubert] get_hubert_from_16k_speech progress')
     # if input_values.shape[1] != 0:
     if input_values.shape[1] >= kernel: # if the last batch is shorter than kernel_size, skip it            
         hidden_states = hubert_model(input_values).last_hidden_state # [B=1, T=pts//320, hid=1024]
