@@ -19,6 +19,7 @@ if __name__ == '__main__':
     parser.add_argument('-O', action='store_true', help="equals --fp16 --cuda_ray --exp_eye")
     parser.add_argument('--test', action='store_true', help="test mode (load model and test dataset)")
     parser.add_argument('--test_train', action='store_true', help="test mode (load model and train dataset)")
+    parser.add_argument('--test_all', action='store_true', help="test mode (load model and all dataset)")
     parser.add_argument('--data_range', type=int, nargs='*', default=[0, -1], help="data range to use")
     parser.add_argument('--workspace', type=str, default='workspace')
     parser.add_argument('--seed', type=int, default=0)
@@ -188,6 +189,12 @@ if __name__ == '__main__':
             test_set = NeRFDataset(opt, device=device, type='train')
             # a manual fix to test on the training dataset
             test_set.training = False 
+            test_set.num_rays = -1
+            test_loader = test_set.dataloader()
+        elif opt.test_all:
+            test_set = NeRFDataset(opt, device=device, type='all')
+            # a manual fix to test on the all dataset
+            test_set.training = False
             test_set.num_rays = -1
             test_loader = test_set.dataloader()
         else:
