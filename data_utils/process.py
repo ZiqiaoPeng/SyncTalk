@@ -337,7 +337,7 @@ def extract_flow(base_dir,ori_imgs_dir,mask_dir, flow_dir):
     key_xys = np.loadtxt(os.path.join(base_dir, 'keypoints.txt'), np.int32)
     track_xys = np.zeros((valid_img_num, key_xys.shape[0], 2), dtype=np.float32)
     track_dir = os.path.join(base_dir,'flow_result')
-    track_paths = sorted(glob.glob(os.path.join(track_dir, '*.npy')), key=lambda x: int(x.split('/')[-1].split('.')[0]))
+    track_paths = sorted(glob.glob(os.path.join(track_dir, '*.npy')), key=lambda x: int(x.replace('\\', '/').split('/')[-1].split('.')[0]))
 
     for i, path in enumerate(track_paths):
 
