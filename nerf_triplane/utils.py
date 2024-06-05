@@ -1488,6 +1488,7 @@ class Trainer(object):
 
 
             torch.save(state, file_path)
+            self.log(f"[INFO] saved checkpoint to {file_path}")
 
         else:    
             if len(self.stats["results"]) > 0:
@@ -1509,7 +1510,7 @@ class Trainer(object):
                         self.ema.restore()
                     
                     torch.save(state, self.best_path)
-                    self.log(f"[INFO] saved checkpoint to {self.best_path}")
+                    self.log(f"[INFO] saved best checkpoint to {self.best_path}")
             else:
                 self.log(f"[WARN] no evaluated results found, skip saving best checkpoint.")
             
