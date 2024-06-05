@@ -1509,6 +1509,7 @@ class Trainer(object):
                         self.ema.restore()
                     
                     torch.save(state, self.best_path)
+                    self.log(f"[INFO] saved checkpoint to {self.best_path}")
             else:
                 self.log(f"[WARN] no evaluated results found, skip saving best checkpoint.")
             
