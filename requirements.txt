@@ -22,7 +22,7 @@ pyaudio
 soundfile
 einops
 configargparse
-
+mediapipe
 lpips
 imageio-ffmpeg
 onnxruntime-gpu
