@@ -251,7 +251,7 @@ class NeRFDataset:
         if self.opt.au45:
             import pandas as pd
             au_blink_info = pd.read_csv(os.path.join(self.root_path, 'au.csv'))
-            bs = au_blink_info[' AU45_r'].values
+            bs = au_blink_info.get('AU45_r', au_blink_info.get(' AU45_r')).values
         else:
             bs = np.load(os.path.join(self.root_path, 'bs.npy'))
             if self.opt.bs_area == "upper":
