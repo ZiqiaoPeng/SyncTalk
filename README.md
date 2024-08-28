@@ -28,7 +28,6 @@ A short demo video can be found [here](./demo/short_demo.mp4).
 - [2024-04-14] Add Windows support.
 - [2024-04-28] The preprocessing code is released.
 - [2024-04-29] Fix bugs: audio encoder, blendshape capture, and face tracker.
-- [2024-05-03] Try replacing NeRF with Gaussian Splatting. Code: [GS-SyncTalk](https://github.com/ZiqiaoPeng/GS-SyncTalk)
 - **[2024-05-24] Introduce torso training to repair double chin.**
 
 
@@ -208,12 +207,12 @@ python main.py data/May --workspace model/trial_may_torso -O  --torso --test --t
 ## Citation	
 
 ```
-@InProceedings{peng2023synctalk,
-  title     = {SyncTalk: The Devil is in the Synchronization for Talking Head Synthesis}, 
-  author    = {Ziqiao Peng and Wentao Hu and Yue Shi and Xiangyu Zhu and Xiaomei Zhang and Jun He and Hongyan Liu and Zhaoxin Fan},
-  booktitle = {Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)},
-  month     = {June},
-  year      = {2024},
+@inproceedings{peng2024synctalk,
+  title={Synctalk: The devil is in the synchronization for talking head synthesis},
+  author={Peng, Ziqiao and Hu, Wentao and Shi, Yue and Zhu, Xiangyu and Zhang, Xiaomei and Zhao, Hao and He, Jun and Liu, Hongyan and Fan, Zhaoxin},
+  booktitle={Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition},
+  pages={666--676},
+  year={2024}
 }
 ```
 
