@@ -1056,9 +1056,6 @@ class Trainer(object):
         pbar = tqdm.tqdm(total=len(loader) * loader.batch_size, bar_format='{percentage:3.0f}% {n_fmt}/{total_fmt} [{elapsed}<{remaining}, {rate_fmt}]')
         self.model.eval()
 
-        all_preds = []
-        all_preds_depth = []
-
         with torch.no_grad():
 
             for i, data in enumerate(loader):
@@ -1083,22 +1080,27 @@ class Trainer(object):
                 pred_depth = preds_depth[0].detach().cpu().numpy()
                 pred_depth = (pred_depth * 255).astype(np.uint8)
 
-                if write_image:
-                    imageio.imwrite(path, pred)
-                    imageio.imwrite(path_depth, pred_depth)
-
-                all_preds.append(pred)
-                all_preds_depth.append(pred_depth)
+                imageio.imwrite(path, pred)
+                imageio.imwrite(path_depth, pred_depth)
 
                 pbar.update(loader.batch_size)
 
         # write video
-        all_preds = np.stack(all_preds, axis=0)
-        all_preds_depth = np.stack(all_preds_depth, axis=0)
-        imageio.mimwrite(os.path.join(save_path, f'{name}.mp4'), all_preds, fps=25, quality=8, macro_block_size=1)
-        imageio.mimwrite(os.path.join(save_path, f'{name}_depth.mp4'), all_preds_depth, fps=25, quality=8, macro_block_size=1)
+        ffmpeg_cmd_rgb = f'ffmpeg -framerate 25 -i "{os.path.join(save_path, name)}_%04d_rgb.png" -c:v libx264 -pix_fmt yuv420p "{os.path.join(save_path, name)}.mp4" -y'
+        os.system(ffmpeg_cmd_rgb)
+
+        ffmpeg_cmd_depth = f'ffmpeg -framerate 25 -i "{os.path.join(save_path, name)}_%04d_depth.png" -c:v libx264 -pix_fmt yuv420p "{os.path.join(save_path, name)}_depth.mp4" -y'
+        os.system(ffmpeg_cmd_depth)
+
         if self.opt.aud != '' and self.opt.asr_model == 'ave':
             os.system(f'ffmpeg -i {os.path.join(save_path, f"{name}.mp4")} -i {self.opt.aud} -strict -2 -c:v copy {os.path.join(save_path, f"{name}_audio.mp4")} -y')
+
+        if not write_image:
+            file_pattern = os.path.join(save_path, f'{name}_*.png')
+            if os.name == 'posix':  # unix-based system (Linux, macOS)
+                os.system(f'rm {file_pattern}')
+            elif os.name == 'nt':  # windows
+                os.system(f'del {file_pattern}')
 
         self.log(f"==> Finished Test.")
     
