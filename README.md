@@ -23,7 +23,7 @@ A short demo video can be found [here](./demo/short_demo.mp4).
   
 <div align="center">
   
-  **Try using [SyncTalk_2D](https://github.com/ZiqiaoPeng/SyncTalk_2D) to achieve faster and better visual quality.**
+  **🔥Try using [SyncTalk_2D](https://github.com/ZiqiaoPeng/SyncTalk_2D) to achieve faster and better visual quality.🔥**
   
   </div>
 
