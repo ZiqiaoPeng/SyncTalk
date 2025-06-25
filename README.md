@@ -20,6 +20,12 @@ A short demo video can be found [here](./demo/short_demo.mp4).
   </p>
 
   The proposed **SyncTalk** synthesizes synchronized talking head videos, employing tri-plane hash representations to maintain subject identity. It can generate synchronized lip movements, facial expressions, and stable head poses, and restores hair details to create high-resolution videos.
+  
+<div align="center">
+  
+  **Try using [SyncTalk_2D](https://github.com/ZiqiaoPeng/SyncTalk_2D) to achieve faster and better visual quality.**
+  
+  </div>
 
 ## 🔥🔥🔥 News
 - [2023-11-30] Update arXiv paper.
@@ -28,7 +34,8 @@ A short demo video can be found [here](./demo/short_demo.mp4).
 - [2024-04-14] Add Windows support.
 - [2024-04-28] The preprocessing code is released.
 - [2024-04-29] Fix bugs: audio encoder, blendshape capture, and face tracker.
-- **[2024-05-24] Introduce torso training to repair double chin.**
+- [2024-05-24] Introduce torso training to repair double chin.
+- [2025-06-25] Update [SyncTalk_2D](https://github.com/ZiqiaoPeng/SyncTalk_2D).
 
 
 
