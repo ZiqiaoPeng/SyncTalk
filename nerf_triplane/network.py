@@ -160,6 +160,22 @@ class MLP(nn.Module):
         return x
 
 
+
+class KSparseLinear(nn.Linear):
+    def __init__(self, in_features, out_features, k, bias=True):
+        super().__init__(in_features, out_features, bias)
+        # 添加k值合法性检查
+        self.k = min(k, in_features)
+        
+    def forward(self, x):
+        output = super().forward(x)
+        # 添加动态k值调整
+        actual_k = min(self.k, output.shape[-1])
+        values, _ = torch.topk(output, actual_k, dim=-1)
+        threshold = values[..., -1].unsqueeze(-1)
+        return output * (output >= threshold).float()
+
+
 class NeRFNetwork(NeRFRenderer):
     def __init__(self,
                  opt,
@@ -232,7 +248,11 @@ class NeRFNetwork(NeRFRenderer):
         self.aud_ch_att_net = MLP(self.in_dim, self.audio_dim, 64, 2)
 
         self.testing = False
-
+        self.sparse_layer = KSparseLinear(
+            in_features=self.in_dim,
+            out_features=self.in_dim,
+            k=min(self.opt.sparse_k, self.in_dim)  # 添加维度检查
+        )
         if self.torso:
             # torso deform network
             self.register_parameter('anchor_points', 
@@ -300,7 +320,7 @@ class NeRFNetwork(NeRFRenderer):
         feat_yz = self.encoder_yz(yz, bound=bound)
         feat_xz = self.encoder_xz(xz, bound=bound)
         
-        return torch.cat([feat_xy, feat_yz, feat_xz], dim=-1)
+        return self.sparse_layer(torch.cat([feat_xy, feat_yz, feat_xz], dim=-1))
     
 
     def encode_audio(self, a):
@@ -436,5 +456,6 @@ class NeRFNetwork(NeRFRenderer):
         params.append({'params': self.aud_ch_att_net.parameters(), 'lr': lr_net, 'weight_decay': wd})
         params.append({'params': self.unc_net.parameters(), 'lr': lr_net, 'weight_decay': wd})
         params.append({'params': self.eye_att_net.parameters(), 'lr': lr_net, 'weight_decay': wd})
+        params.append({'params': self.sparse_layer.parameters(), 'lr': lr_net, 'weight_decay': wd})
 
         return params

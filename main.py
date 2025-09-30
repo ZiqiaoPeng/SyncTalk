@@ -35,6 +35,7 @@ if __name__ == '__main__':
     parser.add_argument('--upsample_steps', type=int, default=0, help="num steps up-sampled per ray (only valid when NOT using --cuda_ray)")
     parser.add_argument('--update_extra_interval', type=int, default=16, help="iter interval to update extra status (only valid when using --cuda_ray)")
     parser.add_argument('--max_ray_batch', type=int, default=4096, help="batch size of rays at inference to avoid OOM (only valid when NOT using --cuda_ray)")
+    parser.add_argument('--sparse_k', type=int, default=16,help='Number of active neurons to keep')
 
     ### loss set
     parser.add_argument('--warmup_step', type=int, default=10000, help="warm up steps")
